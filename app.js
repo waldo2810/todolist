@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const _ = require("lodash");
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 app.set("view engine", "ejs");
 
@@ -118,6 +119,6 @@ app.post("/delete", (req, res) => {
   }
 });
 
-app.listen(3000, function () {
+app.listen(port, function () {
   console.log("\nServer started on port 3000");
 });
