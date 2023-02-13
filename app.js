@@ -72,7 +72,10 @@ app.get("/:listName", (req, res) => {
 
       res.redirect(`${listName}`);
     } else {
-      res.render("list", { listTitle: foundList.name, newListItems: foundList.items });
+      res.render("list", {
+        listTitle: foundList.name,
+        newListItems: foundList.items,
+      });
     }
   });
 });
@@ -110,12 +113,18 @@ app.post("/delete", (req, res) => {
       res.redirect("/");
     });
   } else {
-    List.findOneAndUpdate({ name: listName }, { $pull: { items: { _id: actualID } } }, function (err, foundList) {
-      if (!err) {
-        console.log("\nDeleted ID: " + actualID + " from " + listName + " List");
-        res.redirect("/" + listName);
+    List.findOneAndUpdate(
+      { name: listName },
+      { $pull: { items: { _id: actualID } } },
+      function (err, foundList) {
+        if (!err) {
+          console.log(
+            "\nDeleted ID: " + actualID + " from " + listName + " List"
+          );
+          res.redirect("/" + listName);
+        }
       }
-    });
+    );
   }
 });
 
